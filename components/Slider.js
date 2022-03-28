@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 
 const Slider = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
+  const [offsetLeft, setOffsetLeft] = useState(0);
   const [thumbLeft, setThumbLeft] = useState(0);
   const [positionBefore, setPositionBefore] = useState(0);
   const [positionAfter, setPositionAfter] = useState(0);
@@ -14,9 +15,9 @@ const Slider = () => {
     e.preventDefault();
     if (isMouseDown) {
       setPositionAfter(e.clientX - positionBefore);
-      if (positionAfter >= 0) {
-        setThumbLeft(positionAfter);
-      } else {
+      setPositionBefore(e.clientX);
+      setThumbLeft(e.target.offsetLeft + positionAfter);
+      if (thumbLeft < 0) {
         setThumbLeft(0);
       }
       console.log(positionAfter);
@@ -35,7 +36,7 @@ const Slider = () => {
         onMouseDown={(e) => handleMouseDown(e)}
         onMouseMove={(e) => handleMouseMove(e)}
         onMouseUp={(e) => handleMouseUp(e)}
-        onMouseLeave={() => setIsMouseDown(false)}
+        onMouseLeave={(e) => handleMouseUp(e)}
         className="absolute h-8 w-8 -translate-y-2 -translate-x-2 rounded-full bg-teal-700"
         style={{ left: thumbLeft + "px" }}
       ></div>
