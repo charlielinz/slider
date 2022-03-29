@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 const Slider = () => {
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const [offsetLeft, setOffsetLeft] = useState(0);
   const [thumbLeft, setThumbLeft] = useState(0);
   const [positionBefore, setPositionBefore] = useState(0);
   const [positionAfter, setPositionAfter] = useState(0);
@@ -20,7 +19,6 @@ const Slider = () => {
       if (thumbLeft < 0) {
         setThumbLeft(0);
       }
-      console.log(positionAfter);
     }
   };
   const handleMouseUp = (e) => {
